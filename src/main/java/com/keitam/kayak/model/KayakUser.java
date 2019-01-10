@@ -3,7 +3,7 @@ package com.keitam.kayak.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Kayak")
+@Table(name = "UserTable")
 @Access(AccessType.FIELD)
 public class KayakUser {
     @Id
@@ -14,12 +14,13 @@ public class KayakUser {
     private String firstName;
     @Column(name = "LastName")
     private String lastName;
-    @Column(name = "Username")
+    @Column(name = "UserName")
     private String userName;
     @Column(name = "Password")
     private String password;
     @Column(name = "UserType")
     private String userType;
+
 
     public Long getUserID() {
         return userID;

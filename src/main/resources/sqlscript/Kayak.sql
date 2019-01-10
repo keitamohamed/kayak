@@ -4,13 +4,14 @@ CREATE DATABASE Kayak;
 
 USE Kayak;
 
-CREATE TABLE UserTable(
+CREATE TABLE User_Table
+(
   UserID INT NOT NULL,
-  FirstName VARCHAR(60) NOT NULL,
-  LastName VARCHAR(60) NOT NULL,
-  UserName VARCHAR(60) NOT NULL,
+  First_Name VARCHAR(60) NOT NULL,
+  Last_Name VARCHAR(60) NOT NULL,
+  User_Name VARCHAR(60) NOT NULL,
   Password VARCHAR(60) NOT NULL,
-  UserType VARCHAR(10) NOT NULL,
+  User_Type VARCHAR(10) NOT NULL,
 
   PRIMARY KEY (UserID)
 )ENGINE = innoDB;
@@ -35,12 +36,12 @@ CREATE TABLE ShippingAddress (
   PRIMARY KEY (ShapingID)
 )ENGINE = innoDB;
 
-CREATE TABLE ProductTable (
+CREATE TABLE Product (
   ProductID INT NOT NULL,
   PName VARCHAR (50) NOT NULL,
   Quantity INT NOT NULL,
   Price DECIMAL (6, 2) NOT NULL,
-  ImageName VARCHAR (50) NULL,
+  Image_Name VARCHAR (50) NULL,
 
   PRIMARY KEY (ProductID)
 )ENGINE = innoDB;
@@ -61,18 +62,18 @@ ALTER TABLE ShippingAddress AUTO_INCREMENT = 100;
 ALTER TABLE Address AUTO_INCREMENT = 1011;
 ALTER TABLE OrderTable AUTO_INCREMENT = 1120;
 
-ALTER TABLE Address ADD CONSTRAINT UserID_FK FOREIGN KEY (UserID) REFERENCES UserTable (UserID);
-ALTER TABLE ShippingAddress ADD CONSTRAINT UID_FK FOREIGN KEY (UID) REFERENCES UserTable (UserID);
-ALTER TABLE OrderTable ADD CONSTRAINT PID_FK FOREIGN KEY (ProductID) REFERENCES ProductTable (ProductID);
+ALTER TABLE Address ADD CONSTRAINT UserID_FK FOREIGN KEY (UserID) REFERENCES User_Table (UserID);
+ALTER TABLE ShippingAddress ADD CONSTRAINT UID_FK FOREIGN KEY (UID) REFERENCES User_Table (UserID);
+ALTER TABLE OrderTable ADD CONSTRAINT PID_FK FOREIGN KEY (ProductID) REFERENCES Product (ProductID);
 
 
-INSERT INTO UserTable (UserID, FirstName, LastName, UserName, Password, UserType)
+INSERT INTO User_Table (UserID, First_Name, Last_Name, User_Name, Password, User_Type)
 VALUE (2566343, 'John', 'Smith', 'jSmith', '!2Smith', 'Employee'),
       (6726341, 'Ashely', 'William', 'aWilliam', 'Ashely!23', 'Customer');
 INSERT INTO Address(UserID, UserAddress, City, State, ZipCode)
 VALUE (2566343, '562 East Way DR Apt 15', 'Charlotte', 'NC', 28740),
       (6726341, '892 Arthur Avenue Ave SE Apt 106', 'New York City', 'NY', 78352);
-INSERT INTO ProductTable (ProductID, PName, Quantity, Price, ImageName)
+INSERT INTO Product (ProductID, PName, Quantity, Price, Image_Name)
 VALUE (78232, 'Lays, Sun and Jalapeno Chip', 1, 3.78, 'chips'),
       (67235, 'Chips Ahoy Cookie', 15, 5.37, 'chips-ahoy-cookie'),
       (75062, 'Pure-Life Water', 7, 3.98, 'pure-life-water'),
