@@ -27,4 +27,14 @@ public class Notification {
                 .hideAfter(Duration.minutes(1))
                 .show();
     }
+
+    public static void operationNotPerform(String title, String message){
+        Notifications.create()
+                .darkStyle()
+                .title(title)
+                .text(message)
+                .position(Pos.CENTER)
+                .hideAfter(Duration.minutes(1))
+                .show();
+    }
 }
