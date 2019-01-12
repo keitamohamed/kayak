@@ -3,6 +3,7 @@ package com.keitam.kayak.model;
 import javafx.beans.property.*;
 import javafx.scene.image.ImageView;
 
+
 public class CustomerCart {
     private LongProperty itemID;
     private StringProperty itemName;

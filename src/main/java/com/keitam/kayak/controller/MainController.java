@@ -10,24 +10,30 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.text.NumberFormat;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class MainController {
-    @FXML private AnchorPane root;
     @FXML private GridPane topRightGridPane;
     @FXML private ScrollPane scrollPane;
     @FXML private FlowPane flowPane;
-    @FXML private Button signIn, signOut, account;
-    @FXML private Label copyRight, discountPer, discountAmount, itemsTotalPrice;
+    @FXML private Button signIn;
+    @FXML private Button signOut;
+    @FXML private Button account;
+    @FXML private Button removeItem;
+    @FXML private Label copyRight;
+    @FXML private Label discountPer;
+    @FXML private Label discountAmount;
+    @FXML private Label itemsTotalPrice;
     @FXML private Label totalItems;
+    @FXML private Label itemsPrice;
+    @FXML private ComboBox<Integer> numQuantity;
 
     @FXML private TableView<CustomerCart> shoppingCartTable;
     @FXML private TableColumn<CustomerCart, String> itemNameColumn;
@@ -39,17 +45,17 @@ public class MainController {
     private ObservableList<CustomerCart> carts = FXCollections.observableArrayList();
 
     private final KayakProductRepository productRepository;
+    private Long itemSelected;
 
 
     @FXML
     public void initialize(){
         copyRight.setText(KayakUtil.getFooterText());
         changeTopRightPaneBehavior();
-        root.setOnMouseEntered(e -> {
 
-        });
         loadProductsInFlowPane(kayakProducts);
         addSelectedProductInCart();
+        updateCart();
     }
 
     private void addSelectedProductInCart(){
@@ -77,11 +83,43 @@ public class MainController {
         }
 
         carts.add(new CustomerCart(productID, productName, 1, productPrice, view));
-        KayakUtil.shoppingCartsTableProperty(shoppingCartTable, itemNameColumn, itemQuantityColumn, itemPriceColumn, carts);
-        discountPer.setText("" + KayakUtil.getDiscountSaving(carts) + "%");
-        itemsTotalPrice.setText("Total Price: " + KayakUtil.NUMBER_FORMAT.format(KayakUtil.getTotalPrice(carts, discountAmount)));
-        totalItems.setText("" + (Integer.parseInt(totalItems.getText()) + 1));
+        displayFinance();
+    }
 
+    private void updateCart() {
+        shoppingCartTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            int itemPosition = shoppingCartTable.getSelectionModel().getSelectedIndex();
+            CustomerCart item = carts.get(itemPosition);
+            itemSelected = item.getItemID();
+            kayakProducts.forEach(product -> {
+                if (product.getProductID() == item.getItemID()){
+                    int productQuantity = product.getQuantity();
+                    numQuantity.getItems().clear();
+                    for (int i = 1; i <= productQuantity; i++){
+                        numQuantity.getItems().add(i);
+                    }
+                }
+            });
+            numQuantity.getSelectionModel().select(item.getQuantity() - 1);
+        });
+
+        numQuantity.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (numQuantity.getSelectionModel().getSelectedItem() != null) {
+                carts.forEach(item -> {
+                    if (item.getItemID() == itemSelected){
+                        item.setQuantity(newValue);
+                        double itemPrice = Objects.requireNonNull(KayakUtil.getProductOriginalPrice(kayakProducts, itemSelected)).getPrice();
+                        item.setPrice(KayakUtil.format(item.getQuantity() * itemPrice));
+                        displayFinance();
+                    }
+                });
+            }
+        });
+
+        removeItem.setOnAction(e -> {
+            carts.remove(getIndex(itemSelected));
+            displayFinance();
+        });
     }
 
     /**
@@ -100,7 +138,7 @@ public class MainController {
             button.setText("" + product.getProductID());
             buttonsList.add(button);
             flowPane.getChildren().addAll(button, new Label("\tPrice: " + KayakUtil.NUMBER_FORMAT.format(product.getPrice()) + "" +
-                    "\tQuantity: " + product.getQuantity()));
+                    "\tQt: " + product.getQuantity()));
         }
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     }
@@ -132,6 +170,20 @@ public class MainController {
             account.setVisible(false);
         });
 
+    }
+
+    private int getIndex(Long itemID) {
+        for (int i = 0; i < carts.size(); i++) {
+            if (carts.get(i).getItemID() == itemID)
+                return i;
+        }
+        return -1;
+    }
+
+    @FXML
+    private void displayFinance(){
+        KayakUtil.shoppingCartsTableProperty(shoppingCartTable, itemNameColumn, itemQuantityColumn, itemPriceColumn, carts);
+        KayakUtil.getFinanceInfo(carts, totalItems, discountPer, itemsPrice, discountAmount, itemsTotalPrice);
     }
 
     /**

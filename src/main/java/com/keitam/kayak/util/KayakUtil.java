@@ -1,6 +1,7 @@
 package com.keitam.kayak.util;
 
 import com.keitam.kayak.model.CustomerCart;
+import com.keitam.kayak.model.KayakProduct;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -14,26 +15,58 @@ import java.text.NumberFormat;
 public class KayakUtil {
     public static final NumberFormat NUMBER_FORMAT = NumberFormat.getCurrencyInstance();
 
-    public static double getDiscountSaving(ObservableList<CustomerCart> carts) {
-        double totalPrice = 0;
-        for (CustomerCart item : carts) {
-            totalPrice += item.getPrice() * item.getQuantity();
-        }
-        if (totalPrice > 500)
+    private KayakUtil(){}
+
+    public static void getFinanceInfo(ObservableList<CustomerCart> carts, Label totalItems,
+                                      Label discountPer, Label itemsPrice, Label discountAmount,
+                                      Label itemsTotalPrice) {
+        totalItems.setText("" +  getTotalItemsCount(carts));
+        discountPer.setText("" + getDiscountSaving(carts) + "%");
+        itemsPrice.setText("" + NUMBER_FORMAT.format(getItemsPrice(carts)));
+        discountAmount.setText("Save Amount: " + NUMBER_FORMAT.format(format(getItemsPrice(carts) * getDiscountSaving(carts))));
+        itemsTotalPrice.setText("Total Price: " + NUMBER_FORMAT.format(getTotalPrice(carts)));
+    }
+
+    private static double getDiscountSaving(ObservableList<CustomerCart> carts) {
+        if (format(getItemsPrice(carts)) > 500)
             return .10;
-        else if (totalPrice > 200)
+        else if (format(getItemsPrice(carts)) > 200)
             return .05;
         return 0;
     }
 
-    public static double getTotalPrice(ObservableList<CustomerCart> carts, Label discountAmount) {
+    private static double getItemsPrice(ObservableList<CustomerCart> carts) {
         double totalPrice = 0;
-        for (CustomerCart item : carts) {
-            totalPrice += item.getPrice() * item.getQuantity();
+        for (CustomerCart item : carts)
+            totalPrice += item.getPrice();
+        return totalPrice;
+    }
+
+    private static double getTotalPrice(ObservableList<CustomerCart> carts) {
+        double saving = format(getItemsPrice(carts) * getDiscountSaving(carts));
+        return format(getItemsPrice(carts) - saving);
+    }
+
+    public static KayakProduct getProductOriginalPrice(ObservableList<KayakProduct> products, Long productID){
+        for (KayakProduct product : products){
+            if (product.getProductID().equals(productID)) {
+                return product;
+            }
         }
-        double saving = format(totalPrice * getDiscountSaving(carts));
-        discountAmount.setText("Save Amount: " + NUMBER_FORMAT.format(saving));
-        return format(totalPrice - saving);
+        return null;
+    }
+
+    public static void updateCartOriginalPrice(ObservableList<CustomerCart> carts, ObservableList<KayakProduct> products) {
+        carts.forEach(item -> {
+            products.forEach(product -> {
+                if (item.getItemID() == product.getProductID())
+                    item.setPrice(product.getPrice());
+            });
+        });
+    }
+
+    private static int getTotalItemsCount(ObservableList<CustomerCart> carts) {
+        return carts.stream().map(CustomerCart::getQuantity).mapToInt(Integer::intValue).sum();
     }
 
     public static ImageView getProductImage(String imageName, int imageWidth, int imageHeight) {
@@ -60,9 +93,10 @@ public class KayakUtil {
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
 
         cart.setItems(item);
+        cart.refresh();
     }
 
-    private static double format(double price){
+    public static double format(double price){
         return Math.round(price * 100.0) / 100.0;
     }
 

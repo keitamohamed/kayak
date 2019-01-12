@@ -1,0 +1,196 @@
+
+* {
+    -fx-text-color: #000000;
+    -fx-primary-bb-color: #434549;
+    -fx-primarycolor: #99e248;
+    -fx-primary-bb-text: #fff;
+    -fx-secondarytext: #ff4d4d;
+    -fx-primaryheader: #232F3D;
+    -fx-primaryfamily: "Times New Roman", Times, serif;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    fx-control-inner-background: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane:focused {
+    fx-control-inner-background: transparent;
+    -fx-background-insets: 0;
+}
+
+.scroll-pane > .corner{
+    fx-control-inner-background: transparent;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+
+}
+
+.scroll-bar:vertical{
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -fx-primarycolor;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+}
+
+.table-view {
+    -fx-table-cell-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-border: none;
+}
+
+.table-view .column-header {
+    -fx-background-color: -fx-primarycolor;
+    -fx-border-width: 0 0 3 0;
+}
+
+.table-view .column-header .label{
+    -fx-font-size: 18px;
+    -fx-font-family: -fx-primaryfamily;
+}
+
+.table-view .table-row-cell {
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+
+.table-view .table-row-cell .text {
+    -fx-font-size: 15px;
+}
+
+.table-view .table-row-cell:selected .text{
+    -fx-background-color: steelblue;
+    -fx-fill: #b2030c;
+    -fx-font-weight: bolder;
+}
+
+.table-view .table-column{
+    -fx-alignment: center;
+    -fx-padding: 10px 0 0 0;
+    -fx-border-width: 0 0 0 0;
+}
+
+.table-view .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.table-view .scroll-bar:horizontal .thumb,
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-insets: none;
+    -fx-background-radius: none;
+    -fx-background-color: transparent;
+}
+
+.table-view .scroll-bar .increment-arrow,
+.table-view .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+.text-field {
+    -fx-font-size: 14px;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #000;
+    -fx-border-style: dashed;
+    -fx-background-color: transparent;
+}
+
+.text-field .placeholder {
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-font-size: 16px;
+    -fx-font-family: Optima, sans-serif, cursive;
+    -fx-background-color: transparent;
+}
+
+#proceedToCheckout {
+    -fx-background-color: #F1C559;
+}
+
+
+.button:hover {
+    -fx-text-fill: -fx-primary-bb-text;
+    -fx-background-color: -fx-primary-bb-color;
+}
+
+.combo-box {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: dashed;
+    -fx-border-color: #000;
+}
+
+.combo-box .cell {
+    -fx-font-size: 14px;
+    -fx-font-family: "Times New Roman";
+    -fx-text-fill: #000;
+    -fx-text-alignment: center;
+}
+
+#topGridPane, #topRightGridPane, #footer {
+    -fx-background-color: -fx-primarycolor;
+}
+
+#leftPane .label{
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Apple Chancery";
+}
+
+#leftPane {
+    -fx-border-width: 0 1 0 0;
+    -fx-border-style: dotted;
+}
+
+#flowPane .button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: lightgray;
+}
+
+#flowPane .label {
+    -fx-font-size: 14px;
+    -fx-font-family: -fx-primaryfamily;
+    -fx-text-fill: -fx-text-color;
+}
+
+#flowPane .button {
+    -fx-font-size: 16px;
+    -fx-pref-height: 135px;
+    -fx-pref-width: 200px;
+    -fx-text-fill: transparent;
+}
+
+#labelCategory {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-font-family: Verdana, Arial, Helvetica, sans-seri;
+}
+
+#applicationName {
+    -fx-font-size: 20px;
+    -fx-font-family: -fx-primaryfamily;
+    -fx-font-weight: bold;
+}
+
+#discountAmount, #itemsTotalPrice {
+    -fx-text-fill: #F13729;
+}

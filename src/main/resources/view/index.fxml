@@ -6,7 +6,7 @@
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.keitam.kayak.controller.MainController">
    <children>
-      <GridPane fx:id="footer" alignment="CENTER" layoutX="-24.0" layoutY="667.0" prefHeight="45.0" prefWidth="1248.0" style="-fx-background-color: red;">
+      <GridPane fx:id="footer" alignment="CENTER" layoutX="-24.0" layoutY="667.0" prefHeight="45.0" prefWidth="1248.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -22,8 +22,8 @@
             <FlowPane fx:id="flowPane" orientation="VERTICAL" prefHeight="555.0" prefWidth="826.0" />
          </content>
       </ScrollPane>
-      <TextField layoutX="879.0" layoutY="60.0" prefHeight="39.0" prefWidth="321.0" promptText="Enter search key" />
-      <GridPane fx:id="topGridPane" layoutX="-14.0" layoutY="-10.0" prefHeight="50.0" prefWidth="995.0" style="-fx-background-color: red;">
+      <TextField layoutX="879.0" layoutY="60.0" prefHeight="39.0" prefWidth="309.0" promptText="Enter search key" />
+      <GridPane fx:id="topGridPane" layoutX="-14.0" layoutY="-10.0" prefHeight="50.0" prefWidth="1019.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -31,7 +31,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
-      <GridPane fx:id="topRightGridPane" layoutX="973.0" layoutY="-12.0" prefHeight="182.0" prefWidth="239.0">
+      <GridPane fx:id="topRightGridPane" layoutX="1003.0" layoutY="-12.0" prefHeight="182.0" prefWidth="209.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -39,7 +39,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Pane fx:id="topRightPane" prefHeight="182.0" prefWidth="299.0" style="-fx-background-color: green;">
+            <Pane fx:id="topRightPane" prefHeight="182.0" prefWidth="226.0">
                <children>
                   <Button fx:id="signIn" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" text="Sign In / Register" />
                   <Button fx:id="account" layoutX="14.0" layoutY="58.0" mnemonicParsing="false" text="Account" />
@@ -48,27 +48,28 @@
             </Pane>
          </children>
       </GridPane>
-      <Pane layoutX="1.0" layoutY="41.0" prefHeight="628.0" prefWidth="366.0">
+      <Pane fx:id="leftPane" layoutX="1.0" layoutY="41.0" prefHeight="628.0" prefWidth="366.0">
          <children>
-            <TableView fx:id="shoppingCartTable" layoutX="6.0" layoutY="70.0" prefHeight="301.0" prefWidth="355.0">
+            <TableView fx:id="shoppingCartTable" layoutX="6.0" layoutY="70.0" prefHeight="315.0" prefWidth="355.0">
               <columns>
                 <TableColumn fx:id="itemNameColumn" prefWidth="153.0" text="Name" />
                   <TableColumn fx:id="itemQuantityColumn" prefWidth="100.0" text="Quantity" />
                   <TableColumn fx:id="itemPriceColumn" prefWidth="100.0" text="Price" />
               </columns>
             </TableView>
-            <Button layoutX="6.0" layoutY="375.0" mnemonicParsing="false" text="Remove Item" />
-            <ComboBox layoutX="275.0" layoutY="375.0" prefHeight="39.0" prefWidth="87.0" />
-            <Label layoutX="139.0" layoutY="381.0" text="Update Quantity:" />
-            <Label layoutX="6.0" layoutY="434.0" text="Total Items" />
-            <Label layoutX="139.0" layoutY="434.0" text="Discount %" />
-            <Label layoutX="253.0" layoutY="434.0" text="Items Price" />
-            <Label fx:id="totalItems" layoutX="40.0" layoutY="476.0" text="0" />
-            <Label fx:id="discountPer" layoutX="162.0" layoutY="476.0" text="0 %" />
-            <Label layoutX="286.0" layoutY="476.0" text="0" />
-            <Label fx:id="discountAmount" layoutX="44.0" layoutY="526.0" text="Save Amount:" />
-            <Label fx:id="itemsTotalPrice" layoutX="207.0" layoutY="526.0" text="Total Price" />
-            <Button layoutX="177.0" layoutY="581.0" mnemonicParsing="false" text="Check Out" />
+            <Button fx:id="removeItem" layoutX="13.0" layoutY="394.0" mnemonicParsing="false" text="Remove Item" />
+            <ComboBox fx:id="numQuantity" layoutX="274.0" layoutY="394.0" prefHeight="17.0" prefWidth="87.0" />
+            <Label layoutX="140.0" layoutY="394.0" text="Update Quantity:" />
+            <Label fx:id="totalItemText" layoutX="7.0" layoutY="447.0" text="Total Items" />
+            <Label fx:id="discountText" layoutX="140.0" layoutY="447.0" text="Discount %" />
+            <Label fx:id="itemsPriceText" layoutX="254.0" layoutY="447.0" text="Items Price" />
+            <Label fx:id="totalItems" layoutX="41.0" layoutY="489.0" text="0" />
+            <Label fx:id="discountPer" layoutX="163.0" layoutY="489.0" text="0 %" />
+            <Label fx:id="itemsPrice" layoutX="270.0" layoutY="489.0" text="0" />
+            <Label fx:id="discountAmount" layoutX="19.0" layoutY="539.0" text="Save Amount:" />
+            <Label fx:id="itemsTotalPrice" layoutX="192.0" layoutY="539.0" text="Total Price" />
+            <Button fx:id="proceedToCheckout" layoutX="162.0" layoutY="587.0" mnemonicParsing="false" text="Proceed to checkout" />
+            <Label fx:id="applicationName" layoutX="136.0" layoutY="21.0" text="Kayak Application" />
          </children>
       </Pane>
    </children>

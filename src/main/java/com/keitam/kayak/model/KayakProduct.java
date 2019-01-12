@@ -14,7 +14,7 @@ public class KayakProduct {
     @Column(name = "PName")
     private String pName;
     @Column(name = "Quantity")
-    private String quantity;
+    private int quantity;
     @Column(name = "Price")
     private double price;
     @Column(name = "ImageName")
@@ -36,11 +36,11 @@ public class KayakProduct {
         this.pName = pName;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
