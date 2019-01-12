@@ -4,8 +4,6 @@ import com.keitam.kayak.util.*;
 import javafx.application.Application;
 import javafx.scene.*;
 import javafx.stage.*;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -24,7 +22,7 @@ public class KayakApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        StageManager.setStage(root, primaryStage, "Main Index").show();
+        StageManager.setMainStage(root, primaryStage, "Main Index").show();
     }
 
     public static void main(String[] args) {

@@ -58,17 +58,17 @@
               </columns>
             </TableView>
             <Button fx:id="removeItem" layoutX="13.0" layoutY="394.0" mnemonicParsing="false" text="Remove Item" />
-            <ComboBox fx:id="numQuantity" layoutX="274.0" layoutY="394.0" prefHeight="17.0" prefWidth="87.0" />
-            <Label layoutX="140.0" layoutY="394.0" text="Update Quantity:" />
+            <ComboBox fx:id="numQuantity" layoutX="274.0" layoutY="394.0" prefWidth="87.0" />
+            <Label layoutX="140.0" layoutY="400.0" text="Update Quantity:" />
             <Label fx:id="totalItemText" layoutX="7.0" layoutY="447.0" text="Total Items" />
             <Label fx:id="discountText" layoutX="140.0" layoutY="447.0" text="Discount %" />
             <Label fx:id="itemsPriceText" layoutX="254.0" layoutY="447.0" text="Items Price" />
             <Label fx:id="totalItems" layoutX="41.0" layoutY="489.0" text="0" />
             <Label fx:id="discountPer" layoutX="163.0" layoutY="489.0" text="0 %" />
             <Label fx:id="itemsPrice" layoutX="270.0" layoutY="489.0" text="0" />
-            <Label fx:id="discountAmount" layoutX="19.0" layoutY="539.0" text="Save Amount:" />
+            <Label fx:id="discountAmount" layoutX="13.0" layoutY="539.0" text="Discount Amount:" />
             <Label fx:id="itemsTotalPrice" layoutX="192.0" layoutY="539.0" text="Total Price" />
-            <Button fx:id="proceedToCheckout" layoutX="162.0" layoutY="587.0" mnemonicParsing="false" text="Proceed to checkout" />
+            <Button fx:id="proceedToCheckout" layoutX="160.0" layoutY="578.0" mnemonicParsing="false" text="Proceed to checkout" />
             <Label fx:id="applicationName" layoutX="136.0" layoutY="21.0" text="Kayak Application" />
          </children>
       </Pane>

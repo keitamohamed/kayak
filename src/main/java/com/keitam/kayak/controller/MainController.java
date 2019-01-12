@@ -2,24 +2,28 @@ package com.keitam.kayak.controller;
 
 import com.keitam.kayak.model.CustomerCart;
 import com.keitam.kayak.model.KayakProduct;
-import com.keitam.kayak.repository.KayakProductRepository;
+import com.keitam.kayak.service.ProductService;
 import com.keitam.kayak.util.KayakUtil;
 import com.keitam.kayak.util.Notification;
+import com.keitam.kayak.util.StageManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
 @Controller
 public class MainController {
+    @FXML private AnchorPane root;
     @FXML private GridPane topRightGridPane;
     @FXML private ScrollPane scrollPane;
     @FXML private FlowPane flowPane;
@@ -44,7 +48,9 @@ public class MainController {
     private ObservableList<Button> buttonsList = FXCollections.observableArrayList();
     private ObservableList<CustomerCart> carts = FXCollections.observableArrayList();
 
-    private final KayakProductRepository productRepository;
+    private final ProductService productService;
+    private final StageManager stageManager;
+
     private Long itemSelected;
 
 
@@ -56,33 +62,40 @@ public class MainController {
         loadProductsInFlowPane(kayakProducts);
         addSelectedProductInCart();
         updateCart();
+        switchScene();
     }
 
+    /**
+     * addSelectedProductInCart method.
+     * When the user click on an item, the item will
+     * be pass into the getSelectedItem method to be
+     * added into cart
+     */
     private void addSelectedProductInCart(){
         for (int i = 0; i < buttonsList.size(); i++) {
             final int location = i;
             buttonsList.get(i).setOnAction(b -> kayakProducts.forEach(p -> {
                 if (Integer.parseInt(buttonsList.get(location).getText()) == p.getProductID()) {
-                    getSelectedItem(p.getProductID(), p.getpName(), p.getPrice(), KayakUtil.getProductImage(p.getImageName(), 100, 75));
-                }
-            }));
+                    CustomerCart item = new CustomerCart(p.getProductID(), p.getpName(), 1, p.getPrice(), KayakUtil.getProductImage(p.getImageName(), 100, 75));
+                    getSelectedItem(item);
+        }
+    }));
         }
     }
 
-    private void getSelectedItem(Long productID, String productName, double productPrice,
-                                 ImageView view) {
+    private void getSelectedItem(CustomerCart itemToBeAdded) {
         if (carts.size() != 0) {
             for (CustomerCart item : carts) {
-                if (item.getItemName().equals(productName)) {
+                if (item.getItemName().equals(itemToBeAdded.getItemName())) {
                     Notification.operationNotPerform("Operation",
-                            (productName + " is already in your cart. " +
+                            (itemToBeAdded.getItemName() + " is already in your cart. " +
                                     "Select\nit in your car and update it quantity."));
                     return;
                 }
             }
         }
 
-        carts.add(new CustomerCart(productID, productName, 1, productPrice, view));
+        carts.add(itemToBeAdded);
         displayFinance();
     }
 
@@ -186,8 +199,19 @@ public class MainController {
         KayakUtil.getFinanceInfo(carts, totalItems, discountPer, itemsPrice, discountAmount, itemsTotalPrice);
     }
 
+    private void switchScene() {
+        signIn.setOnAction(e -> {
+            StageManager.closeWindow(root);
+            try {
+                StageManager.setSubStage("Kayak User Login");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+    }
+
     /**
-     * @param repository
+     * @param service
      * Spring will encounter the MainController class while
      * doing a package scan and will initialize its instance
      * by calling the @Autowired annotated constructor.
@@ -197,12 +221,15 @@ public class MainController {
      * considered a best practice to autowired it
      */
     @Autowired
-    private MainController(KayakProductRepository repository){
-        this.productRepository = repository;
+    private MainController(ProductService service, StageManager manager){
+        this.productService = service;
+        this.stageManager = manager;
+
     }
 
     @Autowired
     private void getProducts(){
-        productRepository.findAll().forEach(e -> kayakProducts.addAll(e));
+        kayakProducts = productService.getAllProduct();
     }
+
 }

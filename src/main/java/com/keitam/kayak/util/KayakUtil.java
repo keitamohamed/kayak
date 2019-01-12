@@ -23,7 +23,7 @@ public class KayakUtil {
         totalItems.setText("" +  getTotalItemsCount(carts));
         discountPer.setText("" + getDiscountSaving(carts) + "%");
         itemsPrice.setText("" + NUMBER_FORMAT.format(getItemsPrice(carts)));
-        discountAmount.setText("Save Amount: " + NUMBER_FORMAT.format(format(getItemsPrice(carts) * getDiscountSaving(carts))));
+        discountAmount.setText("Discount Amt: " + NUMBER_FORMAT.format(format(getItemsPrice(carts) * getDiscountSaving(carts))));
         itemsTotalPrice.setText("Total Price: " + NUMBER_FORMAT.format(getTotalPrice(carts)));
     }
 

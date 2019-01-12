@@ -6,7 +6,7 @@
     -fx-primary-bb-text: #fff;
     -fx-secondarytext: #ff4d4d;
     -fx-primaryheader: #232F3D;
-    -fx-primaryfamily: "Times New Roman", Times, serif;
+    -fx-primaryfamily: "Helvetica Neue", "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 .scroll-pane {
@@ -118,7 +118,7 @@
 
 .button {
     -fx-font-size: 16px;
-    -fx-font-family: Optima, sans-serif, cursive;
+    -fx-font-family: -fx-primaryfamily;
     -fx-background-color: transparent;
 }
 
@@ -151,9 +151,9 @@
 }
 
 #leftPane .label{
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-font-family: "Apple Chancery";
+    -fx-font-family: -fx-primaryfamily;
 }
 
 #leftPane {
@@ -191,6 +191,22 @@
     -fx-font-weight: bold;
 }
 
-#discountAmount, #itemsTotalPrice {
+#proceedToCheckout:hover {
+    -fx-text-fill: -fx-primary-bb-text;
+    -fx-background-color: -fx-primary-bb-color;
+}
+
+#discountAmount, #itemsTotalPrice{
+    -fx-text-fill: #00CC44;
+    -fx-font-weight: bold;
+}
+
+#removeItem {
     -fx-text-fill: #F13729;
+    -fx-font-weight: bold;
+}
+
+#copyRight {
+    -fx-font-size: 16px;
+    -fx-font-family: -fx-primaryfamily;
 }
