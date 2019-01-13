@@ -1,4 +1,4 @@
-package com.keitam.kayak.service;
+package com.keitam.kayak.repository;
 
 import com.keitam.kayak.model.KayakProduct;
 import com.keitam.kayak.repository.ProductRepository;
@@ -6,6 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProductService {
@@ -22,5 +24,6 @@ public class ProductService {
         productRepository.findAll().forEach(allProduct::addAll);
         return allProduct;
     }
+
 
 }

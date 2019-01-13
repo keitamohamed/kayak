@@ -1,10 +1,15 @@
 package com.keitam.kayak.model;
 
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "UserTable")
 @Access(AccessType.FIELD)
+@RequiredArgsConstructor
 public class KayakUser {
     @Id
     @GeneratedValue
@@ -20,7 +25,6 @@ public class KayakUser {
     private String password;
     @Column(name = "UserType")
     private String userType;
-
 
     public Long getUserID() {
         return userID;

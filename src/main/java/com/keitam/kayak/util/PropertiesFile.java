@@ -20,8 +20,6 @@ public class PropertiesFile {
         this.context = context;
     }
 
-    public PropertiesFile(){}
-
     public Parent loadFXML(String classTitle) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory(context::getBean);

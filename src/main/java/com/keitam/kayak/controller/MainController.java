@@ -2,7 +2,7 @@ package com.keitam.kayak.controller;
 
 import com.keitam.kayak.model.CustomerCart;
 import com.keitam.kayak.model.KayakProduct;
-import com.keitam.kayak.service.ProductService;
+import com.keitam.kayak.repository.ProductService;
 import com.keitam.kayak.util.KayakUtil;
 import com.keitam.kayak.util.Notification;
 import com.keitam.kayak.util.StageManager;
@@ -48,6 +48,8 @@ public class MainController {
 
     private final ProductService productService;
     private Long itemSelected;
+
+    private StageManager stageManager = new StageManager();
 
 
     @FXML
@@ -196,7 +198,7 @@ public class MainController {
     }
 
     private void switchScene() {
-        signIn.setOnAction(e -> StageManager.switchScene(root, "Kayak User Login"));
+        signIn.setOnAction(e -> stageManager.switchScene(root, "Kayak User Login"));
     }
 
     /**

@@ -4,7 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -13,11 +15,13 @@ import java.io.IOException;
 
 @Service
 public class StageManager {
-    private static PropertiesFile propertiesFile = new PropertiesFile();
+    private PropertiesFile propertiesFile;
 
+    public StageManager(){}
 
-    private StageManager(){
-
+    @Autowired
+    private StageManager(PropertiesFile file){
+        this.propertiesFile = file;
     }
 
     @FXML
@@ -31,21 +35,26 @@ public class StageManager {
     }
 
     @FXML
-    private static void setSubStage(Stage stage, String title) throws IOException {
-        AnchorPane root = propertiesFile.loadSubFXML(title);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+    private void setSubStage(Parent root, String title) throws IOException {
+        if (propertiesFile == null)
+            System.out.println("Print");
+        Parent switchRoot = propertiesFile.loadFXML(title);
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(root.getScene().getWindow());
+        stage.setScene(new Scene(switchRoot));
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
         stage.setTitle(title);
         stage.setResizable(false);
         stage.getScene().getStylesheets().add(StageManager.class.getResource(PropertiesFile.getStyleSheet(title)).toExternalForm());
         stage.show();
     }
 
-    public static void switchScene(AnchorPane root, String title){
+    public void switchScene(Parent root, String title){
         try {
             closeWindow(root);
-            Stage stage = new Stage();
-            setSubStage(stage, title);
+            setSubStage(root, title);
         } catch (IOException e) {
             //Notification.errorMessage("IOException", e.getMessage());
             e.printStackTrace();
@@ -53,7 +62,7 @@ public class StageManager {
     }
 
     @FXML
-    private static void closeWindow(AnchorPane root){
+    private static void closeWindow(Parent root){
         Stage stage = (Stage) root.getScene().getWindow();
         stage.close();
     }

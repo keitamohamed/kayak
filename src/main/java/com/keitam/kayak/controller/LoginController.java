@@ -1,15 +1,25 @@
 package com.keitam.kayak.controller;
 
-import com.keitam.kayak.service.UserService;
+import com.keitam.kayak.model.KayakUser;
+import com.keitam.kayak.repository.KayakUserServiceImpl;
+import com.keitam.kayak.repository.UserRepository;
+import com.keitam.kayak.repository.UserService;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
+
+@Component
 @Controller
 public class LoginController {
     @FXML private AnchorPane root;
@@ -18,25 +28,35 @@ public class LoginController {
     @FXML private PasswordField password;
     @FXML private Button login;
 
+    private List<KayakUser> users = FXCollections.observableArrayList();
+
     private UserService userService;
 
     @FXML
     public void initialize() {
         incorrectLogin.setVisible(false);
-        login.setOnAction(e -> getKayakUser());
+        login.setOnAction(e -> {
+            getAllUser();
+            if (users.isEmpty())
+                System.out.println("Empty");
+            users.forEach(System.out::println);
+        });
     }
 
-    private void getKayakUser() {
-        if (userService != null)
-            System.out.println("Null point");
-        userService.getAll().forEach(e -> System.out.println(e.getFirstName()));
+//    private void getKayakUser() {
+//        if (userService != null)
+//        userService.getAll().forEach(e -> System.out.println(e.getFirstName()));
+//    }
+
+
+    private void getAllUser(){
+        users.addAll(userService.findAllUser());
     }
-
-    public LoginController(){}
-
 
     @Autowired
-    private LoginController(UserService service) {
+    public LoginController(UserService service) {
+        super();
         this.userService = service;
     }
+
 }
