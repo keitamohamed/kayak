@@ -2,6 +2,7 @@ package com.keitam.kayak.util;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -28,7 +29,7 @@ public class PropertiesFile {
         return loader.load();
     }
 
-    public Parent loadSubFXML(String classTitle) throws IOException {
+    public AnchorPane loadSubFXML(String classTitle) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(getFXMLFile(classTitle)));
         return loader.load();
@@ -67,8 +68,9 @@ public class PropertiesFile {
         if (value.equals("Main Index")) {
             return "main_style";
         }
-        else if (value.equals("Kayak User Login"))
+        else if (value.equals("Kayak User Login")) {
             return "login_style";
+        }
         return "Employee";
 
     }

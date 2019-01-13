@@ -22,4 +22,5 @@ public class ProductService {
         productRepository.findAll().forEach(allProduct::addAll);
         return allProduct;
     }
+
 }

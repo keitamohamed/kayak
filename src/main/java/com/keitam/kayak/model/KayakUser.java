@@ -14,9 +14,9 @@ public class KayakUser {
     private String firstName;
     @Column(name = "LastName")
     private String lastName;
-    @Column(name = "UserName")
+    @Column(name = "UserName", nullable = false, unique = true)
     private String userName;
-    @Column(name = "Password")
+    @Column(name = "Password", unique = true, nullable = false)
     private String password;
     @Column(name = "UserType")
     private String userType;

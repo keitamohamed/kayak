@@ -1,0 +1,70 @@
+* {
+    -fx-primary: #2A2E37;
+    -fx-secondary: #FFFF8D;
+    -fx-primarytext: #B2B2B2;
+    -fx-secondarytext: #ff4d4d;
+}
+
+.root {
+    -fx-background-color: #2A2E37;
+    -fx-padding: 0 10px 10px 10px;
+
+}
+
+.root .label {
+    -fx-text-fill: -fx-primarytext;
+    -fx-font-family: "Apple Chancery", cursive;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.root .text-field, .root .password-field {
+    -fx-font-size: 16px;
+    -fx-font-family: "Times New Roman";
+    -fx-text-fill: -fx-primarytext;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: dashed;
+    -fx-border-color: -fx-secondary;
+    -fx-background-color: transparent;
+}
+
+.root .text-field:hover, .root .password-field:hover {
+    -fx-border-color: -fx-primarytext;
+    -fx-padding: 0 0 10px 0;
+}
+
+.root .button {
+    -fx-font-size: 18px;
+    -fx-text-fill: -fx-primarytext;
+    -fx-font-family: "Times New Roman";
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+
+.root .button:hover {
+    -fx-cursor: hand;
+    -fx-border-radius: 20px;
+    -fx-border-width: 1;
+    -fx-border-color: -fx-secondary;
+    -fx-border-style: dashed;
+}
+
+#incorrectLogin {
+    -fx-font-size: 16px;
+    -fx-font-family: "Times New Roman";
+    -fx-text-fill: -fx-secondarytext;
+    -fx-font-weight: normal;
+    display: none
+}
+
+#register {
+    -fx-font-style: oblique;
+}
+
+.separator {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-border-insets: none !important;
+    -fx-border-style: dashed;
+    -fx-background-color: transparent;
+}

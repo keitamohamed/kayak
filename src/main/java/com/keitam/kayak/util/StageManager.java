@@ -30,18 +30,30 @@ public class StageManager {
         return stage;
     }
 
-    public static void setSubStage(String title) throws IOException {
-        Parent root = propertiesFile.loadSubFXML(title);
-        Stage stage = new Stage();
-        stage.setScene(root.getScene());
+    @FXML
+    private static void setSubStage(Stage stage, String title) throws IOException {
+        AnchorPane root = propertiesFile.loadSubFXML(title);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         stage.setTitle(title);
         stage.setResizable(false);
+        stage.getScene().getStylesheets().add(StageManager.class.getResource(PropertiesFile.getStyleSheet(title)).toExternalForm());
         stage.show();
-        //stage.getScene().getStylesheets().add(StageManager.class.getResource(PropertiesFile.getStyleSheet(title)).toExternalForm());
+    }
+
+    public static void switchScene(AnchorPane root, String title){
+        try {
+            closeWindow(root);
+            Stage stage = new Stage();
+            setSubStage(stage, title);
+        } catch (IOException e) {
+            //Notification.errorMessage("IOException", e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    public static void closeWindow(AnchorPane root){
+    private static void closeWindow(AnchorPane root){
         Stage stage = (Stage) root.getScene().getWindow();
         stage.close();
     }

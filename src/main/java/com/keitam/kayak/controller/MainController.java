@@ -13,11 +13,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -49,8 +47,6 @@ public class MainController {
     private ObservableList<CustomerCart> carts = FXCollections.observableArrayList();
 
     private final ProductService productService;
-    private final StageManager stageManager;
-
     private Long itemSelected;
 
 
@@ -200,14 +196,7 @@ public class MainController {
     }
 
     private void switchScene() {
-        signIn.setOnAction(e -> {
-            StageManager.closeWindow(root);
-            try {
-                StageManager.setSubStage("Kayak User Login");
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        });
+        signIn.setOnAction(e -> StageManager.switchScene(root, "Kayak User Login"));
     }
 
     /**
@@ -221,10 +210,8 @@ public class MainController {
      * considered a best practice to autowired it
      */
     @Autowired
-    private MainController(ProductService service, StageManager manager){
+    private MainController(ProductService service){
         this.productService = service;
-        this.stageManager = manager;
-
     }
 
     @Autowired
