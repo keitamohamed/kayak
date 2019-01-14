@@ -1,9 +1,8 @@
 package com.keitam.kayak;
 
-import com.keitam.kayak.util.*;
+import com.keitam.kayak.util.StageManager;
 import javafx.application.Application;
-import javafx.scene.*;
-import javafx.stage.*;
+import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -11,19 +10,16 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 public class KayakApplication extends Application {
     private ConfigurableApplicationContext context;
-    private Parent root;
 
     @Override
-    public void init() throws Exception {
+    public void init() {
         context = SpringApplication.run(KayakApplication.class);
-        //PropertiesFile loader = context.getBean(PropertiesFile.class);
-        //root = loader.loadFXML("Main Index");
     }
 
     @Override
     public void start(Stage primaryStage) {
         StageManager stageManager = context.getBean(StageManager.class, primaryStage);
-        stageManager.switchScene(root, "Main Index");
+        stageManager.switchScene("Main Index");
     }
 
     public static void main(String[] args) {

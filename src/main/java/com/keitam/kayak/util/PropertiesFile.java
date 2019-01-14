@@ -19,13 +19,6 @@ public class PropertiesFile {
         this.context = context;
     }
 
-    public Parent loadFXML(String classTitle) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setControllerFactory(context::getBean);
-        loader.setLocation(getClass().getResource(getFXMLFile(classTitle)));
-        return loader.load();
-    }
-
     Parent loadSubFXML(String classTitle) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory(context::getBean);

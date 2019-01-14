@@ -205,7 +205,7 @@ public class MainController implements Initializable {
     private void switchScene() {
         signIn.setOnAction(e -> {
             stageManager.closeWindow(root);
-            stageManager.switchScene(root, "Kayak User Login");
+            stageManager.switchScene("Kayak User Login");
         });
     }
 

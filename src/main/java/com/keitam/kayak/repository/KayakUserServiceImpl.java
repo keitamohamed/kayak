@@ -22,6 +22,11 @@ public class KayakUserServiceImpl implements UserService{
     }
 
     @Override
+    public KayakUser getUserLogin(String userName, String password) {
+        return null;
+    }
+
+    @Override
     public KayakUser getUser(Long id) {
         return null;
     }
