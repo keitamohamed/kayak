@@ -2,7 +2,6 @@ package com.keitam.kayak.util;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,7 @@ import java.util.Properties;
 
 @Component
 public class PropertiesFile {
-    private ApplicationContext context;
+    private final ApplicationContext context;
 
     @Autowired
     private PropertiesFile(ApplicationContext context) {
@@ -27,8 +26,9 @@ public class PropertiesFile {
         return loader.load();
     }
 
-    public AnchorPane loadSubFXML(String classTitle) throws IOException {
+    Parent loadSubFXML(String classTitle) throws IOException {
         FXMLLoader loader = new FXMLLoader();
+        loader.setControllerFactory(context::getBean);
         loader.setLocation(getClass().getResource(getFXMLFile(classTitle)));
         return loader.load();
     }
@@ -43,7 +43,7 @@ public class PropertiesFile {
         return fxmlLocation;
     }
 
-    public static String getStyleSheet(String classTitle) {
+    static String getStyleSheet(String classTitle) {
         String fxmlLocation = null;
         try {
             fxmlLocation = url("StyleSheet").getProperty(cssFileName(classTitle));
@@ -72,7 +72,6 @@ public class PropertiesFile {
         return "Employee";
 
     }
-
 
     private static Properties url(String propertiesFile) throws IOException {
         Properties properties = new Properties();

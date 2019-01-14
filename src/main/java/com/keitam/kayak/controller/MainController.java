@@ -9,18 +9,22 @@ import com.keitam.kayak.util.StageManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 @Controller
-public class MainController {
+public class MainController implements Initializable {
     @FXML private AnchorPane root;
     @FXML private GridPane topRightGridPane;
     @FXML private ScrollPane scrollPane;
@@ -49,11 +53,11 @@ public class MainController {
     private final ProductService productService;
     private Long itemSelected;
 
-    private StageManager stageManager = new StageManager();
-
+    @Lazy
+    private StageManager stageManager;
 
     @FXML
-    public void initialize(){
+    public void initialize(URL location, ResourceBundle resources){
         copyRight.setText(KayakUtil.getFooterText());
         changeTopRightPaneBehavior();
 
@@ -197,8 +201,12 @@ public class MainController {
         KayakUtil.getFinanceInfo(carts, totalItems, discountPer, itemsPrice, discountAmount, itemsTotalPrice);
     }
 
+    @FXML
     private void switchScene() {
-        signIn.setOnAction(e -> stageManager.switchScene(root, "Kayak User Login"));
+        signIn.setOnAction(e -> {
+            stageManager.closeWindow(root);
+            stageManager.switchScene(root, "Kayak User Login");
+        });
     }
 
     /**
@@ -212,7 +220,8 @@ public class MainController {
      * considered a best practice to autowired it
      */
     @Autowired
-    private MainController(ProductService service){
+    private MainController(ProductService service, StageManager manager){
+        this.stageManager = manager;
         this.productService = service;
     }
 

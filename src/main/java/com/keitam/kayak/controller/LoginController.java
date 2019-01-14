@@ -4,6 +4,7 @@ import com.keitam.kayak.model.KayakUser;
 import com.keitam.kayak.repository.KayakUserServiceImpl;
 import com.keitam.kayak.repository.UserRepository;
 import com.keitam.kayak.repository.UserService;
+import com.keitam.kayak.util.StageManager;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
@@ -27,6 +29,9 @@ public class LoginController {
     @FXML private TextField userName;
     @FXML private PasswordField password;
     @FXML private Button login;
+
+    @Lazy
+    private StageManager stageManager;
 
     private List<KayakUser> users = FXCollections.observableArrayList();
 
@@ -54,8 +59,9 @@ public class LoginController {
     }
 
     @Autowired
-    public LoginController(UserService service) {
+    public LoginController(StageManager manager, UserService service) {
         super();
+        this.stageManager = manager;
         this.userService = service;
     }
 

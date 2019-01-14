@@ -16,13 +16,14 @@ public class KayakApplication extends Application {
     @Override
     public void init() throws Exception {
         context = SpringApplication.run(KayakApplication.class);
-        PropertiesFile loader = context.getBean(PropertiesFile.class);
-        root = loader.loadFXML("Main Index");
+        //PropertiesFile loader = context.getBean(PropertiesFile.class);
+        //root = loader.loadFXML("Main Index");
     }
 
     @Override
     public void start(Stage primaryStage) {
-        StageManager.setMainStage(root, primaryStage, "Main Index").show();
+        StageManager stageManager = context.getBean(StageManager.class, primaryStage);
+        stageManager.switchScene(root, "Main Index");
     }
 
     public static void main(String[] args) {
