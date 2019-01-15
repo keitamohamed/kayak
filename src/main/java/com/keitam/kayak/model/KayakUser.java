@@ -5,9 +5,8 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
-@Data
 @Entity
-@Table(name = "UserTable")
+@Table(name = "User")
 @Access(AccessType.FIELD)
 @RequiredArgsConstructor
 public class KayakUser {
@@ -25,6 +24,12 @@ public class KayakUser {
     private String password;
     @Column(name = "UserType")
     private String userType;
+
+    @Override
+    public String toString() {
+        return "User Info: " + userID + ", " + firstName + " " + lastName +
+                ", and type " + userType;
+    }
 
     public Long getUserID() {
         return userID;

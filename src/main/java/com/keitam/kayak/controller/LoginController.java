@@ -1,5 +1,6 @@
 package com.keitam.kayak.controller;
 
+import com.keitam.kayak.exception.UserExceptionHandler;
 import com.keitam.kayak.model.KayakUser;
 import com.keitam.kayak.repository.KayakUserServiceImpl;
 import com.keitam.kayak.util.StageManager;
@@ -44,11 +45,16 @@ public class LoginController {
         if (StringUtils.isNotBlank(userName.getText())
                 && StringUtils.isNotBlank(password.getText())) {
             getUser();
+            KayakUser user = userService.getUserByID(userName.getText(), password.getText());
+            if (user == null) {
+                throw new UserExceptionHandler(userName.getText() + " " + password.getText());
+            }
+            System.out.println(user.toString());
         }
     }
 
     private void getUser(){
-        users.add(userService.getUserLogin(userName.getText(), password.getText()));
+        users.addAll(userService.findAllUser());
     }
 
     @Autowired

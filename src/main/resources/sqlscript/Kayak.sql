@@ -4,7 +4,7 @@ CREATE DATABASE Kayak;
 
 USE Kayak;
 
-CREATE TABLE User_Table
+CREATE TABLE User
 (
   UserID INT NOT NULL,
   First_Name VARCHAR(60) NOT NULL,
@@ -62,12 +62,12 @@ ALTER TABLE ShippingAddress AUTO_INCREMENT = 100;
 ALTER TABLE Address AUTO_INCREMENT = 1011;
 ALTER TABLE OrderTable AUTO_INCREMENT = 1120;
 
-ALTER TABLE Address ADD CONSTRAINT UserID_FK FOREIGN KEY (UserID) REFERENCES User_Table (UserID);
-ALTER TABLE ShippingAddress ADD CONSTRAINT UID_FK FOREIGN KEY (UID) REFERENCES User_Table (UserID);
+ALTER TABLE Address ADD CONSTRAINT UserID_FK FOREIGN KEY (UserID) REFERENCES User (UserID);
+ALTER TABLE ShippingAddress ADD CONSTRAINT UID_FK FOREIGN KEY (UID) REFERENCES User (UserID);
 ALTER TABLE OrderTable ADD CONSTRAINT PID_FK FOREIGN KEY (ProductID) REFERENCES Product (ProductID);
 
 
-INSERT INTO User_Table (UserID, First_Name, Last_Name, User_Name, Password, User_Type)
+INSERT INTO User (UserID, First_Name, Last_Name, User_Name, Password, User_Type)
 VALUE (2566343, 'John', 'Smith', 'jSmith', '!2Smith', 'Employee'),
       (6726341, 'Ashely', 'William', 'aWilliam', 'Ashely!23', 'Customer');
 INSERT INTO Address(UserID, UserAddress, City, State, ZipCode)
