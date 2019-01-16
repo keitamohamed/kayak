@@ -2,7 +2,7 @@ package com.keitam.kayak.controller;
 
 import com.keitam.kayak.exception.UserExceptionHandler;
 import com.keitam.kayak.model.User;
-import com.keitam.kayak.repository.KayakUserServiceImpl;
+import com.keitam.kayak.repository.UserService;
 import com.keitam.kayak.util.StageManager;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -26,14 +26,15 @@ public class Login {
     @FXML private Label incorrectLogin;
     @FXML private TextField userName;
     @FXML private PasswordField password;
-    @FXML private Button login, register;
+    @FXML private Button login;
+    @FXML private Button register;
 
     @Lazy
     private StageManager stageManager;
 
     private List<User> users = FXCollections.observableArrayList();
 
-    private KayakUserServiceImpl userService;
+    private UserService userService;
 
     @FXML
     public void initialize() {
@@ -50,7 +51,6 @@ public class Login {
             if (user == null) {
                 throw new UserExceptionHandler(userName.getText() + " " + password.getText());
             }
-            System.out.println(user.toString());
         }
     }
 
@@ -63,11 +63,11 @@ public class Login {
     }
 
     private void getUser(){
-        users.addAll(userService.findAllUser());
+        users.addAll(userService.getUser());
     }
 
     @Autowired
-    public Login(StageManager manager, KayakUserServiceImpl service) {
+    public Login(StageManager manager, UserService service) {
         this.stageManager = manager;
         this.userService = service;
     }

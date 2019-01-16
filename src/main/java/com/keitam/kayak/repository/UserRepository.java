@@ -6,6 +6,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+interface UserRepository extends JpaRepository<User, Long> {
     User getKayakUserByUserNameAndPassword(@Param("UserName") String userName, @Param("Password") String password);
 }

@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.text.NumberFormat;
+import java.util.Random;
 
 public class KayakUtil {
     public static final NumberFormat NUMBER_FORMAT = NumberFormat.getCurrencyInstance();
@@ -102,5 +103,10 @@ public class KayakUtil {
 
     public static String getFooterText() {
         return "Copyright \u00a9 2018. All right reserved. Powered by M.Keita Platform";
+    }
+
+    public static int getGeneratedUserID() {
+        Random random = new Random();
+        return (random.nextInt(900000) + 900000);
     }
 }

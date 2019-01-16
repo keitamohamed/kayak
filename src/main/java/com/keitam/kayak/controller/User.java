@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 
 @Component
 @Controller
-public class KayakUser {
+public class User {
 
     @FXML
     public void initialize(){

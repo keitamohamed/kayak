@@ -11,7 +11,6 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 public class User {
     @Id
-    @GeneratedValue
     @Column(name = "UserID", unique = true, nullable = false)
     private Long userID;
     @Column(name = "FirstName")
@@ -24,6 +23,15 @@ public class User {
     private String password;
     @Column(name = "UserType")
     private String userType;
+
+    public User(Long userID, String firstName, String lastName, String userName, String password, String userType) {
+        this.userID = userID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.password = password;
+        this.userType = userType;
+    }
 
     @Override
     public String toString() {

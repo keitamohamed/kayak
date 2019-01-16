@@ -19,7 +19,7 @@ CREATE TABLE User
 CREATE TABLE Address (
   ID INT NOT NULL AUTO_INCREMENT,
   UserID INT NOT NULL,
-  UserAddress VARCHAR(100) NOT NULL,
+  address VARCHAR(100) NOT NULL,
   City VARCHAR(20) NOT NULL,
   State VARCHAR(3) NOT NULL,
   ZipCode INT NOT NULL,
@@ -70,7 +70,7 @@ ALTER TABLE OrderTable ADD CONSTRAINT PID_FK FOREIGN KEY (ProductID) REFERENCES 
 INSERT INTO User (UserID, First_Name, Last_Name, User_Name, Password, User_Type)
 VALUE (2566343, 'John', 'Smith', 'jSmith', '!2Smith', 'Employee'),
       (6726341, 'Ashely', 'William', 'aWilliam', 'Ashely!23', 'Customer');
-INSERT INTO Address(UserID, UserAddress, City, State, ZipCode)
+INSERT INTO Address(UserID, address, City, State, ZipCode)
 VALUE (2566343, '562 East Way DR Apt 15', 'Charlotte', 'NC', 28740),
       (6726341, '892 Arthur Avenue Ave SE Apt 106', 'New York City', 'NY', 78352);
 INSERT INTO Product (ProductID, PName, Quantity, Price, Image_Name)

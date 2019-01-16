@@ -1,6 +1,8 @@
 package com.keitam.kayak.controller;
 
-import com.keitam.kayak.repository.KayakUserServiceImpl;
+import com.keitam.kayak.model.User;
+import com.keitam.kayak.repository.UserService;
+import com.keitam.kayak.util.Notification;
 import com.keitam.kayak.util.StageManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -30,7 +32,7 @@ public class Registration {
 
     @Lazy
     private StageManager stageManager;
-    private KayakUserServiceImpl userService;
+    private UserService userService;
 
     @FXML
     public void initialize(){
@@ -39,10 +41,24 @@ public class Registration {
     }
 
     private void submitRegistration(){
-        if (isMatch()){
-
+        if (isFillOut() && isMatch()){
+            User user = userService.saveKayakUser(firstName.getText(), lastName.getText(), userName.getText(),
+                    password.getText(), address.getText(), city.getText(), state.getText(),
+                    zipCode.getText());
+            if (user != null)
+                Notification.message("User Added",
+                        ("Hi " + user.getFirstName() + ", thank for registering. Your login name is " +
+                                "" + user.getUserName() + " and password is " + user.getPassword()));
         }
 
+    }
+
+    private boolean isFillOut(){
+        return !firstName.getText().isEmpty() && !lastName.getText().isEmpty()
+                && !address.getText().isEmpty() && !city.getText().isEmpty()
+                && !state.getText().isEmpty() && !zipCode.getText().isEmpty()
+                && !userName.getText().isEmpty() && !password.getText().isEmpty()
+                && !confirmPassword.getText().isEmpty();
     }
 
     private boolean isMatch(){
@@ -62,7 +78,7 @@ public class Registration {
     }
 
     @Autowired
-    private Registration(StageManager manager, KayakUserServiceImpl uService){
+    private Registration(StageManager manager, UserService uService){
         this.stageManager = manager;
         this.userService = uService;
     }
