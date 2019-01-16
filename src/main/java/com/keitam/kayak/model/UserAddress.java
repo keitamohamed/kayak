@@ -19,7 +19,7 @@ public class UserAddress {
     private String city;
     @Column(name = "state")
     private String state;
-    @Column(name = "zipCode")
+    @Column(name = "Zip")
     private int zipCode;
 
     public UserAddress(Long userID, String address, String city, String state, int zipCode) {
@@ -30,9 +30,6 @@ public class UserAddress {
         this.zipCode = zipCode;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UserID")
-    private User user;
 
     public Long getId() {
         return id;
@@ -40,14 +37,6 @@ public class UserAddress {
 
     public Long getUserID() {
         return userID;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getAddress() {
