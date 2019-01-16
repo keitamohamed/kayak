@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Product")
 @Access(AccessType.FIELD)
-public class KayakProduct {
+public class Product {
 
     @Id
     @GeneratedValue

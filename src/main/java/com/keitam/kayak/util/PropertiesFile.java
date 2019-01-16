@@ -47,23 +47,29 @@ public class PropertiesFile {
     }
 
     private String fxmlFile(String value){
-        if (value.equals("Main Index")) {
-            return "main_index";
+        switch (value) {
+            case "Main Index":
+                return "main_index";
+            case "Kayak User Login":
+                return "login_index";
+            case "Register Index":
+                return "register_index";
+             default:
+                 return "Employee";
         }
-        else if (value.equals("Kayak User Login"))
-            return "login_index";
-        return "Employee";
     }
 
     private static String cssFileName(String value) {
-        if (value.equals("Main Index")) {
-            return "main_style";
+        switch (value) {
+            case "Main Index":
+                return "main_style";
+            case "Kayak User Login":
+                return "login_style";
+            case "Register Index":
+                return "register_style";
+            default:
+                return "Employee";
         }
-        else if (value.equals("Kayak User Login")) {
-            return "login_style";
-        }
-        return "Employee";
-
     }
 
     private static Properties url(String propertiesFile) throws IOException {

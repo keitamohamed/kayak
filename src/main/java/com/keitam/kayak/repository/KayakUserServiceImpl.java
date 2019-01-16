@@ -1,6 +1,6 @@
 package com.keitam.kayak.repository;
 
-import com.keitam.kayak.model.KayakUser;
+import com.keitam.kayak.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,26 +16,26 @@ public class KayakUserServiceImpl implements UserService{
     }
 
     @Override
-    public List<KayakUser> findAllUser() {
+    public List<User> findAllUser() {
         return userRepository.findAll();
     }
 
-    public KayakUser getUserByID(String userName, String password) {
+    public User getUserByID(String userName, String password) {
        return userRepository.getKayakUserByUserNameAndPassword(userName, password);
     }
 
     @Override
-    public KayakUser getUserLogin(String userName, String password) {
+    public User getUserLogin(String userName, String password) {
         return null;
     }
 
     @Override
-    public KayakUser getUser(Long id) {
+    public User getUser(Long id) {
         return null;
     }
 
     @Override
-    public KayakUser saveKayakUser(KayakUser user) {
+    public User saveKayakUser(User user) {
         return null;
     }
 }

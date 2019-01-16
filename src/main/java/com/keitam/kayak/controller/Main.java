@@ -1,7 +1,7 @@
 package com.keitam.kayak.controller;
 
 import com.keitam.kayak.model.CustomerCart;
-import com.keitam.kayak.model.KayakProduct;
+import com.keitam.kayak.model.Product;
 import com.keitam.kayak.repository.ProductService;
 import com.keitam.kayak.util.KayakUtil;
 import com.keitam.kayak.util.Notification;
@@ -16,6 +16,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.net.URL;
@@ -23,8 +24,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+@Component
 @Controller
-public class MainController implements Initializable {
+public class Main implements Initializable {
     @FXML private AnchorPane root;
     @FXML private GridPane topRightGridPane;
     @FXML private ScrollPane scrollPane;
@@ -46,7 +48,7 @@ public class MainController implements Initializable {
     @FXML private TableColumn<CustomerCart, Integer> itemQuantityColumn;
     @FXML private TableColumn<CustomerCart, Double> itemPriceColumn;
 
-    private ObservableList<KayakProduct> kayakProducts = FXCollections.observableArrayList();
+    private ObservableList<Product> kayakProducts = FXCollections.observableArrayList();
     private ObservableList<Button> buttonsList = FXCollections.observableArrayList();
     private ObservableList<CustomerCart> carts = FXCollections.observableArrayList();
 
@@ -145,9 +147,9 @@ public class MainController implements Initializable {
      * list of buttons.
      */
     @FXML
-    private void loadProductsInFlowPane(List<KayakProduct> products) {
+    private void loadProductsInFlowPane(List<Product> products) {
         Button button;
-        for (KayakProduct product : products){
+        for (Product product : products){
             button = new Button();
             button.setGraphic(KayakUtil.getProductImage(product.getImageName(), 150, 135));
             button.setText("" + product.getProductID());
@@ -220,7 +222,7 @@ public class MainController implements Initializable {
      * considered a best practice to autowired it
      */
     @Autowired
-    private MainController(ProductService service, StageManager manager){
+    private Main(ProductService service, StageManager manager){
         this.stageManager = manager;
         this.productService = service;
     }

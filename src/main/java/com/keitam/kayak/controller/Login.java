@@ -1,7 +1,7 @@
 package com.keitam.kayak.controller;
 
 import com.keitam.kayak.exception.UserExceptionHandler;
-import com.keitam.kayak.model.KayakUser;
+import com.keitam.kayak.model.User;
 import com.keitam.kayak.repository.KayakUserServiceImpl;
 import com.keitam.kayak.util.StageManager;
 import javafx.collections.FXCollections;
@@ -21,17 +21,17 @@ import java.util.List;
 
 @Component
 @Controller
-public class LoginController {
+public class Login {
     @FXML private AnchorPane root;
     @FXML private Label incorrectLogin;
     @FXML private TextField userName;
     @FXML private PasswordField password;
-    @FXML private Button login;
+    @FXML private Button login, register;
 
     @Lazy
     private StageManager stageManager;
 
-    private List<KayakUser> users = FXCollections.observableArrayList();
+    private List<User> users = FXCollections.observableArrayList();
 
     private KayakUserServiceImpl userService;
 
@@ -39,13 +39,14 @@ public class LoginController {
     public void initialize() {
         incorrectLogin.setVisible(false);
         login.setOnAction(e -> getKayakUser());
+        switchScene();
     }
 
     private void getKayakUser() {
         if (StringUtils.isNotBlank(userName.getText())
                 && StringUtils.isNotBlank(password.getText())) {
             getUser();
-            KayakUser user = userService.getUserByID(userName.getText(), password.getText());
+            User user = userService.getUserByID(userName.getText(), password.getText());
             if (user == null) {
                 throw new UserExceptionHandler(userName.getText() + " " + password.getText());
             }
@@ -53,13 +54,20 @@ public class LoginController {
         }
     }
 
+    @FXML
+    private void switchScene() {
+        register.setOnAction(e -> {
+            stageManager.closeWindow(root);
+            stageManager.switchScene("Register Index");
+        });
+    }
+
     private void getUser(){
         users.addAll(userService.findAllUser());
     }
 
     @Autowired
-    public LoginController(StageManager manager, KayakUserServiceImpl service) {
-        super();
+    public Login(StageManager manager, KayakUserServiceImpl service) {
         this.stageManager = manager;
         this.userService = service;
     }

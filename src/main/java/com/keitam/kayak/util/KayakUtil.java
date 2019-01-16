@@ -1,7 +1,7 @@
 package com.keitam.kayak.util;
 
 import com.keitam.kayak.model.CustomerCart;
-import com.keitam.kayak.model.KayakProduct;
+import com.keitam.kayak.model.Product;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -47,8 +47,8 @@ public class KayakUtil {
         return format(getItemsPrice(carts) - saving);
     }
 
-    public static KayakProduct getProductOriginalPrice(ObservableList<KayakProduct> products, Long productID){
-        for (KayakProduct product : products){
+    public static Product getProductOriginalPrice(ObservableList<Product> products, Long productID){
+        for (Product product : products){
             if (product.getProductID().equals(productID)) {
                 return product;
             }
@@ -56,7 +56,7 @@ public class KayakUtil {
         return null;
     }
 
-    public static void updateCartOriginalPrice(ObservableList<CustomerCart> carts, ObservableList<KayakProduct> products) {
+    public static void updateCartOriginalPrice(ObservableList<CustomerCart> carts, ObservableList<Product> products) {
         carts.forEach(item -> {
             products.forEach(product -> {
                 if (item.getItemID() == product.getProductID())

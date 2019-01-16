@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "User")
 @Access(AccessType.FIELD)
 @RequiredArgsConstructor
-public class KayakUser {
+public class User {
     @Id
     @GeneratedValue
     @Column(name = "UserID", unique = true, nullable = false)
