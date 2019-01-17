@@ -42,15 +42,15 @@ public class Registration {
 
     private void submitRegistration(){
         if (isFillOut() && isMatch()){
-            User user = userService.saveKayakUser(firstName.getText(), lastName.getText(), userName.getText(),
-                    password.getText(), address.getText(), city.getText(), state.getText(),
+            User newUser = userService.getUserTextInput(firstName.getText(), lastName.getText(),
+                    userName.getText(), password.getText());
+            User user = userService.saveKayakUser(newUser, address.getText(), city.getText(), state.getText(),
                     zipCode.getText());
             if (user != null)
                 Notification.message("User Added",
                         ("Hi " + user.getFirstName() + ", thank for registering. Your login name is " +
                                 "" + user.getUserName() + " and password is " + user.getPassword()));
         }
-
     }
 
     private boolean isFillOut(){

@@ -27,12 +27,20 @@ public class UserService {
        return userRepository.getKayakUserByUserNameAndPassword(userName, password);
     }
 
-    public User saveKayakUser(String fName, String lName, String userName, String password,
-                              String address, String city, String state, String zipCode) {
-        Long userID = (long) KayakUtil.getGeneratedUserID();
-        User user = new User(userID, fName, lName, userName, password, "Customer");
-        UserAddress userAddress = new UserAddress(userID, address, city, state, Integer.parseInt(zipCode));
-        addressRepository.save(userAddress);
-        return userRepository.save(user);
+    public User saveKayakUser(User user, String address, String city, String state, String zipCode) {
+        UserAddress userAddr = new UserAddress(user.getUserID(), address, city, state, Integer.parseInt(zipCode), user);
+
+        addressRepository.save(userAddr);
+        return user;
     }
+
+    public User getUserTextInput(String fName, String lName, String userName, String password) {
+        return createUser(fName, lName, userName, password);
+    }
+
+    private User createUser(String fName, String lName, String userName, String password) {
+        Long userID = (long) KayakUtil.getGeneratedUserID();
+        return new User(userID, fName, lName, userName, password, "Customer");
+    }
+
 }

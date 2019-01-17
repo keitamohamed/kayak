@@ -18,10 +18,10 @@ CREATE TABLE User
 
 CREATE TABLE Address (
   ID INT NOT NULL AUTO_INCREMENT,
-  UserID INT NOT NULL,
+  User_ID INT NOT NULL,
   address VARCHAR(100) NOT NULL,
   City VARCHAR(20) NOT NULL,
-  State VARCHAR(3) NOT NULL,
+  State VARCHAR(60) NOT NULL,
   Zip INT NOT NULL,
 
   PRIMARY KEY(ID)
@@ -62,7 +62,7 @@ ALTER TABLE ShippingAddress AUTO_INCREMENT = 100;
 ALTER TABLE Address AUTO_INCREMENT = 1011;
 ALTER TABLE OrderTable AUTO_INCREMENT = 1120;
 
-ALTER TABLE Address ADD CONSTRAINT UserID_FK FOREIGN KEY (UserID) REFERENCES User (UserID);
+ALTER TABLE Address ADD CONSTRAINT UserID_FK FOREIGN KEY (User_ID) REFERENCES User (UserID);
 ALTER TABLE ShippingAddress ADD CONSTRAINT UID_FK FOREIGN KEY (UID) REFERENCES User (UserID);
 ALTER TABLE OrderTable ADD CONSTRAINT PID_FK FOREIGN KEY (ProductID) REFERENCES Product (ProductID);
 
@@ -70,7 +70,7 @@ ALTER TABLE OrderTable ADD CONSTRAINT PID_FK FOREIGN KEY (ProductID) REFERENCES 
 INSERT INTO User (UserID, First_Name, Last_Name, User_Name, Password, User_Type)
 VALUE (2566343, 'John', 'Smith', 'jSmith', '!2Smith', 'Employee'),
       (6726341, 'Ashely', 'William', 'aWilliam', 'Ashely!23', 'Customer');
-INSERT INTO Address(UserID, address, City, State, Zip)
+INSERT INTO Address(User_ID, address, City, State, Zip)
 VALUE (2566343, '562 East Way DR Apt 15', 'Charlotte', 'NC', 28740),
       (6726341, '892 Arthur Avenue Ave SE Apt 106', 'New York City', 'NY', 78352);
 INSERT INTO Product (ProductID, PName, Quantity, Price, Image_Name)

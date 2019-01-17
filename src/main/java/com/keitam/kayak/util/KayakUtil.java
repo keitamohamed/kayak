@@ -107,6 +107,6 @@ public class KayakUtil {
 
     public static int getGeneratedUserID() {
         Random random = new Random();
-        return (random.nextInt(900000) + 900000);
+        return (random.nextInt(900000) + 9000000);
     }
 }
